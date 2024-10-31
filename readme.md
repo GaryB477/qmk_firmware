@@ -17,7 +17,11 @@ Dont know, check the official QMK page.
 
 
 ## Flash firmware onto device:
-Flash onto device via: qmk flash -kb sofle -km via -e CONVERT_TO=helios 
+Flash onto device via: 
+
+```
+qmk flash -kb sofle -km via -e CONVERT_TO=helios 
+```
 
 - This flashes the "via" keymap. The exact layout can then later be chanbed.
 - Note the `helios`. This is the specific rp2040 board used. 
