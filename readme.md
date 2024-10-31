@@ -12,25 +12,32 @@ This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github
 
 * [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
 
-The docs are powered by [Docsify](https://docsify.js.org/) and hosted on [GitHub](/docs/). They are also viewable offline; see [Previewing the Documentation](https://docs.qmk.fm/#/contributing?id=previewing-the-documentation) for more details.
+Setup required for this to work:
+Dont know, check the official QMK page.
 
-You can request changes by making a fork and opening a [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "Edit this page" link at the bottom of any page.
 
-## Supported Keyboards
+## Flash firmware onto device:
+Flash onto device via: qmk flash -kb sofle -km via -e CONVERT_TO=helios 
 
-* [Planck](/keyboards/planck/)
-* [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard](/keyboards/clueboard/)
-* [Cluepad](/keyboards/clueboard/17/)
-* [Atreus](/keyboards/atreus/)
+- This flashes the "via" keymap. The exact layout can then later be chanbed.
+- Note the `helios`. This is the specific rp2040 board used. 
 
-The project also includes community support for [lots of other keyboards](/keyboards/).
+Then. go to via in browser. 
 
-## Maintainers
+You might need to change some settings to get the USB port to work. Check the chrome log with `chrome://device-log` and see if there are any access denied prompts. To fix this, you need to set the permission for the USB device via a udef rule. Like this: 
 
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/jackhumbert), the Ergodox EZ by [ZSA Technology Labs](https://github.com/zsa), the Clueboard by [Zach White](https://github.com/skullydazed), and the Atreus by [Phil Hagelberg](https://github.com/technomancy).
+```
+vim /etc/udev/rules.d/99-via.rules 
+```
 
-## Official Website
+And add:
 
-[qmk.fm](https://qmk.fm) is the official website of QMK, where you can find links to this page, the documentation, and the keyboards supported by QMK.
+```
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess", TAG+="udev-acl"
+```
+
+Note: To reload your udef rule without needing to re-logg, execute the following:
+
+```
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
