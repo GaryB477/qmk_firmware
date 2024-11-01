@@ -45,3 +45,16 @@ Note: To reload your udef rule without needing to re-logg, execute the following
 ```
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
+
+# Layout setup:
+Since via is a pain to use with different languages other than english (ANSI), we simply join them by setting the layout to english....
+But now, how do you type characters like `ö` `ë` `ä`? By using macros in via. Example:
+
+To type a `ö`, use: 
+
+```
+{KC_RALT,KC_RSFT,KC_QUOT}o
+```
+
+It types a `"` followed by a `o`, which then gets converted. Note: You need to setup the `compose key`, which is also kinda quirky... Read through [here](https://askubuntu.com/questions/70784/how-can-i-enable-compose-key), especially the "In Ubuntu 22.04 and later" section.
+
